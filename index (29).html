@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="আমাদের বাজার - তাজা উপকরণ ও রেসিপি কার্ড সহ রেডি-টু-কুক মিল কিট। ঢাকা, বরিশাল, চট্টগ্রামে একই দিন ডেলিভারি।">
+  <meta name="theme-color" content="#2e7d32">
+  <title>আমাদের বাজার | AmaderBazar.com - রেডি-টু-কুক মিল কিট</title>
+  <!-- Google Fonts: Hind Siliguri (Bangla) + Open Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free CDN for icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --secondary: #ff6f00;
+      --secondary-dark: #e65100;
+      --bg-light: #fef9e6;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-700: #495057;
+      --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.12);
+      --radius-card: 12px;
+    }
+
+    body {
+      font-family: 'Open Sans', 'Hind Siliguri', sans-serif;
+      background: var(--bg-light);
+      color: #1e2a1e;
+      scroll-behavior: smooth;
+    }
+
+    /* Utility classes */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--secondary-dark);
+    }
+
+    /* Header sticky */
+    .header {
+      background: white;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 12px 0;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .logo p {
+      font-size: 0.75rem;
+      color: var(--secondary);
+      font-weight: 500;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e2c;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background: var(--secondary);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 30px;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(105deg, #1e3a1e 0%, #2e7d32 100%);
+      color: white;
+      padding: 80px 24px;
+      text-align: center;
+      border-radius: 0 0 32px 32px;
+    }
+
+    .hero h2 {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    /* Features Bar */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      background: white;
+      padding: 40px 24px;
+      margin: -24px 20px 40px;
+      border-radius: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feature-item {
+      text-align: center;
+      flex: 1;
+      min-width: 140px;
+    }
+    .feature-item i { font-size: 2.2rem; color: var(--primary); margin-bottom: 8px; display: block;}
+
+    /* Product Grid */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 40px 0 24px;
+      text-align: center;
+      color: var(--primary-dark);
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      margin: 30px 0;
+    }
+    .product-card {
+      background: white;
+      border-radius: var(--radius-card);
+      padding: 18px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+    .discount-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--secondary);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+    .product-emoji {
+      font-size: 3rem;
+      background: var(--gray-100);
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-bottom: 16px;
+    }
+    .product-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin: 8px 0 4px;
+    }
+    .serves {
+      font-size: 0.8rem;
+      color: var(--gray-700);
+      margin-bottom: 12px;
+    }
+    .price-wrap {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      margin: 12px 0;
+    }
+    .old-price {
+      text-decoration: line-through;
+      color: #8b8b8b;
+      font-size: 0.85rem;
+    }
+    .new-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+    }
+    .add-to-cart {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .details-link {
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    /* Steps & Testimonials */
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 48px;
+      margin: 50px 0;
+      text-align: center;
+    }
+    .step {
+      flex: 1;
+      min-width: 180px;
+    }
+    .step-circle {
+      background: var(--primary);
+      color: white;
+      width: 60px;
+      height: 60px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 40px 0;
+    }
+    .testimonial-card {
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-sm);
+    }
+    .stars { color: #ffb300; margin-bottom: 12px; }
+
+    /* Cart Sidebar */
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1100;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.2s;
+    }
+    .cart-sidebar {
+      position: fixed;
+      right: -400px;
+      top: 0;
+      width: 380px;
+      height: 100%;
+      background: white;
+      z-index: 1101;
+      padding: 24px;
+      transition: 0.3s ease;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .cart-sidebar.open {
+      right: 0;
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.4rem;
+      font-weight: bold;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 12px;
+    }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin: 20px 0;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 12px;
+    }
+    .cart-item-info { flex: 2; }
+    .cart-item-controls { display: flex; gap: 12px; align-items: center; }
+    .cart-total { font-weight: bold; font-size: 1.2rem; border-top: 2px solid #ddd; padding-top: 16px; }
+    .toast-msg {
+      position: fixed;
+      bottom: 30px;
+      left: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      z-index: 1200;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+    }
+
+    /* footer */
+    .footer {
+      background: #1e2a1e;
+      color: #ddd;
+      padding: 40px 24px 20px;
+      margin-top: 60px;
+    }
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    .social i {
+      font-size: 1.6rem;
+      margin-right: 16px;
+      color: #ffb74d;
+    }
+    .payment-icons i {
+      font-size: 2rem;
+      margin-right: 12px;
+    }
+    .sticky-bottom {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.1);
+      padding: 10px 20px;
+      justify-content: space-around;
+      z-index: 1000;
+    }
+    .scroll-top {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: 0.2s;
+      z-index: 900;
+    }
+
+    @media (max-width: 992px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonial-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .nav-links.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 24px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        gap: 18px;
+      }
+      .cart-sidebar { width: 100%; right: -100%; }
+      .sticky-bottom { display: flex; }
+      .scroll-top { bottom: 70px; }
+    }
+    button { background: none; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container header-content">
+    <div class="logo">
+      <h1>আমাদের বাজার</h1>
+      <p>রান্নাঘর হোক আনন্দময়</p>
+    </div>
+    <div class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></div>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#packages">প্যাকেজ</a>
+      <a href="#howitworks">কিভাবে কাজ করে</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="cart-icon" id="cartIcon">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section id="home" class="hero">
+    <div class="container">
+      <h2>তাজা উপকরণ, সহজ রান্না</h2>
+      <p style="font-size:1.2rem;">প্রতিটি প্যাকেজে সব কিছু মাপা — শুধু রান্না করুন</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" id="scrollToPackagesBtn"><i class="fas fa-box"></i> প্যাকেজ দেখুন</button>
+        <button class="btn-secondary" id="scrollToHowBtn"><i class="fas fa-play-circle"></i> কিভাবে কাজ করে</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="features">
+      <div class="feature-item"><i class="fas fa-leaf"></i> <strong>তাজা উপকরণ</strong><br>Fresh daily sourced</div>
+      <div class="feature-item"><i class="fas fa-receipt"></i> <strong>রেসিপি কার্ড</strong><br>Step-by-step Bangla recipe</div>
+      <div class="feature-item"><i class="fas fa-truck-fast"></i> <strong>দ্রুত ডেলিভারি</strong><br>Same-day delivery</div>
+      <div class="feature-item"><i class="fas fa-medal"></i> <strong>গ্যারান্টি</strong><br>100% satisfaction</div>
+    </div>
+
+    <h2 class="section-title" id="packages">🍽️ আমাদের বিশেষ প্যাকেজসমূহ</h2>
+    <div class="product-grid" id="productGrid"></div>
+
+    <div id="howitworks">
+      <h2 class="section-title">কিভাবে কাজ করে</h2>
+      <div class="steps">
+        <div class="step"><div class="step-circle">১</div><h3>প্যাকেজ বেছে নিন</h3><p>অনলাইনে অর্ডার করুন</p></div>
+        <div class="step"><div class="step-circle">২</div><h3>ডেলিভারি পান</h3><p>একই দিন হোম ডেলিভারি</p></div>
+        <div class="step"><div class="step-circle">৩</div><h3>রান্না করুন</h3><p>রেসিপি ফলো করুন & enjoy</p></div>
+      </div>
+    </div>
+
+    <h2 class="section-title">গ্রাহকরা যা বলেন</h2>
+    <div class="testimonial-grid" id="testimonials"></div>
+  </div>
+</main>
+
+<footer class="footer" id="contact">
+  <div class="container footer-content">
+    <div><h3>আমাদের বাজার</h3><p>তাজা ও প্রিমিয়াম মিল কিট<br>ঢাকা, বরিশাল, চট্টগ্রাম</p></div>
+    <div><h4>লিংক</h4><p><a href="#" style="color:#ffb74d">About</a> | <a href="#" style="color:#ffb74d">Privacy</a> | <a href="#" style="color:#ffb74d">Refund</a></p></div>
+    <div class="social"><h4>সোশ্যাল</h4><i class="fab fa-facebook"></i> <i class="fab fa-whatsapp" id="whatsappOrderBtn"></i></div>
+    <div class="payment-icons"><h4>পেমেন্ট</h4><i class="fab fa-cc-visa"></i> <i class="fas fa-mobile-alt"></i> bKash/Nagad</div>
+  </div>
+  <div style="text-align:center; margin-top:32px;">© 2025 আমাদের বাজার | AmaderBazar.com</div>
+</footer>
+
+<div class="sticky-bottom">
+  <i class="fas fa-home" id="stickyHome"></i>
+  <i class="fas fa-box" id="stickyPackages"></i>
+  <i class="fas fa-shopping-cart" id="stickyCart"></i>
+  <i class="fas fa-phone-alt" id="stickyContact"></i>
+</div>
+<div class="scroll-top" id="scrollTopBtn"><i class="fas fa-arrow-up"></i></div>
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header"><span>আমার কার্ট 🛒</span><button id="closeCartBtn" style="font-size:1.4rem;">&times;</button></div>
+  <div class="cart-items" id="cartItemsList"><p>কার্ট খালি</p></div>
+  <div class="cart-total" id="cartTotalPrice">মোট: ৳ ০</div>
+  <button class="btn-primary" id="checkoutBtn" style="width:100%; margin-top:16px;">অর্ডার করুন <i class="fab fa-whatsapp"></i></button>
+</div>
+<div id="toastMsg" class="toast-msg">কার্টে যোগ হয়েছে!</div>
+
+<script>
+  // Product Data (with discount)
+  const products = [
+    { id: 1, name: "ভাত-মাছের প্যাকেজ", emoji: "🐟", serves: "২ জনের জন্য", price: 320, discount: 10, original: 355 },
+    { id: 2, name: "মুরগির রোস্ট কিট", emoji: "🍗", serves: "৪ জনের জন্য", price: 650, discount: 12, original: 739 },
+    { id: 3, name: "গরুর কালা ভুনা কিট", emoji: "🥩", serves: "৪ জনের জন্য", price: 890, discount: 15, original: 1047 },
+    { id: 4, name: "বিরিয়ানি কিট", emoji: "🍚", serves: "৪ জনের জন্য", price: 750, discount: 10, original: 833 },
+    { id: 5, name: "শাকসবজি প্যাকেজ", emoji: "🥬", serves: "২ জনের জন্য", price: 220, discount: 10, original: 244 },
+    { id: 6, name: "মটন রেজালা কিট", emoji: "🍖", serves: "৪ জনের জন্য", price: 1100, discount: 15, original: 1294 },
+    { id: 7, name: "ইলিশ পলাও কিট", emoji: "🐟", serves: "৪ জনের জন্য", price: 950, discount: 12, original: 1080 },
+    { id: 8, name: "চিকেন স্যুপ কিট", emoji: "🍲", serves: "২ জনের জন্য", price: 380, discount: 10, original: 422 }
+  ];
+
+  let cart = []; // each: {id, name, price, quantity}
+  function saveCart() { localStorage.setItem('amaderCart', JSON.stringify(cart)); updateCartUI(); }
+  function loadCart() { const stored = localStorage.getItem('amaderCart'); if(stored) cart = JSON.parse(stored); updateCartUI(); }
+
+  function updateCartUI() {
+    const count = cart.reduce((sum, i) => sum + i.quantity, 0);
+    document.getElementById('cartCount').innerText = count;
+    const cartContainer = document.getElementById('cartItemsList');
+    const totalSpan = document.getElementById('cartTotalPrice');
+    let total = 0;
+    if(cart.length === 0) cartContainer.innerHTML = '<p>কার্ট খালি</p>';
+    else {
+      cartContainer.innerHTML = '';
+      cart.forEach((item, idx) => {
+        total += item.price * item.quantity;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `<div class="cart-item-info"><strong>${item.name}</strong><br>৳${item.price} x ${item.quantity}</div>
+                         <div class="cart-item-controls"><button class="cart-qty-minus" data-id="${item.id}">-</button><span>${item.quantity}</span><button class="cart-qty-plus" data-id="${item.id}">+</button>
+                         <button class="cart-remove" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button></div>`;
+        cartContainer.appendChild(div);
+      });
+      document.querySelectorAll('.cart-qty-minus').forEach(btn => btn.addEventListener('click', (e) => { let id = parseInt(btn.dataset.id); changeQty(id, -1); }));
+      document.querySelectorAll('.cart-qty-plus').forEach(btn => btn.addEventListener('click', (e) => { let id = parseInt(btn.dataset.id); changeQty(id, 1); }));
+      document.querySelectorAll('.cart-remove').forEach(btn => btn.addEventListener('click', (e) => { let id = parseInt(btn.dataset.id); removeFromCart(id); }));
+    }
+    totalSpan.innerText = `মোট: ৳ ${total}`;
+  }
+
+  function changeQty(id, delta) {
+    const idx = cart.findIndex(i => i.id === id);
+    if(idx !== -1) {
+      cart[idx].quantity += delta;
+      if(cart[idx].quantity <= 0) cart.splice(idx,1);
+      saveCart();
+    }
+  }
+  function removeFromCart(id) { cart = cart.filter(i => i.id !== id); saveCart(); showToast("সরানো হয়েছে!"); }
+  function addToCart(product) {
+    const existing = cart.find(i => i.id === product.id);
+    if(existing) existing.quantity += 1;
+    else cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1 });
+    saveCart();
+    showToast(`${product.name} কার্টে যোগ হয়েছে!`);
+  }
+  function showToast(msg) { const toast = document.getElementById('toastMsg'); toast.innerText = msg; toast.style.opacity = '1'; setTimeout(()=> toast.style.opacity = '0', 1800); }
+
+  function renderProducts() {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = '';
+    products.forEach(p => {
+      const discountPercent = p.discount;
+      const finalPrice = p.price;
+      const originalPrice = p.original;
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <div class="discount-badge">-${discountPercent}%</div>
+        <div class="product-emoji">${p.emoji}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="serves">🍴 ${p.serves}</div>
+        <div class="price-wrap"><span class="old-price">৳${originalPrice}</span><span class="new-price">৳${finalPrice}</span></div>
+        <div class="card-actions"><button class="add-to-cart" data-id="${p.id}">কার্টে যোগ করুন</button><a href="#" class="details-link">বিস্তারিত</a></div>
+      `;
+      grid.appendChild(card);
+    });
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const product = products.find(p =>
